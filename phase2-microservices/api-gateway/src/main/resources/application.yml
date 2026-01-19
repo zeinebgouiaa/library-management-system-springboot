@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    config:
+      enabled: false   # Disable config server for local development
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: book-service
+          uri: lb://book-service
+          predicates:
+            - Path=/api/books/**
+
+        - id: member-service
+          uri: lb://member-service
+          predicates:
+            - Path=/api/members/**
+
+        - id: loan-service
+          uri: lb://loan-service
+          predicates:
+            - Path=/api/loans/**
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true

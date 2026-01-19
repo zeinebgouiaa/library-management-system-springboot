@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: loan-service   # 🔑 MUST MATCH FILE NAME
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://localhost:8888
